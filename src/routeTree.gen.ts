@@ -15,7 +15,9 @@ import { Route as ActividadesRouteImport } from './routes/actividades'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as HorariosRouteImport } from './routes/horarios'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as RegistroRouteImport } from './routes/registro'
+import { Route as RestablecerRouteImport } from './routes/restablecer'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/_admin/route'
 import { Route as AuthenticatedMiembrosRouteImport } from './routes/_authenticated/miembros'
 import { Route as AuthenticatedPanelRouteImport } from './routes/_authenticated/panel'
@@ -56,9 +58,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecuperarRoute = RecuperarRouteImport.update({
+  id: '/recuperar',
+  path: '/recuperar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegistroRoute = RegistroRouteImport.update({
   id: '/registro',
   path: '/registro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestablecerRoute = RestablecerRouteImport.update({
+  id: '/restablecer',
+  path: '/restablecer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
@@ -123,7 +135,9 @@ export interface FileRoutesByFullPath {
   '/contacto': typeof ContactoRoute
   '/horarios': typeof HorariosRoute
   '/login': typeof LoginRoute
+  '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
+  '/restablecer': typeof RestablecerRoute
   '/miembros': typeof AuthenticatedMiembrosRoute
   '/panel': typeof AuthenticatedPanelRoute
   '/perfil': typeof AuthenticatedPerfilRoute
@@ -140,7 +154,9 @@ export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/horarios': typeof HorariosRoute
   '/login': typeof LoginRoute
+  '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
+  '/restablecer': typeof RestablecerRoute
   '/miembros': typeof AuthenticatedMiembrosRoute
   '/panel': typeof AuthenticatedPanelRoute
   '/perfil': typeof AuthenticatedPerfilRoute
@@ -158,7 +174,9 @@ export interface FileRoutesById {
   '/contacto': typeof ContactoRoute
   '/horarios': typeof HorariosRoute
   '/login': typeof LoginRoute
+  '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
+  '/restablecer': typeof RestablecerRoute
   '/_authenticated/_admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/miembros': typeof AuthenticatedMiembrosRoute
   '/_authenticated/panel': typeof AuthenticatedPanelRoute
@@ -178,7 +196,9 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/horarios'
     | '/login'
+    | '/recuperar'
     | '/registro'
+    | '/restablecer'
     | '/miembros'
     | '/panel'
     | '/perfil'
@@ -195,7 +215,9 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/horarios'
     | '/login'
+    | '/recuperar'
     | '/registro'
+    | '/restablecer'
     | '/miembros'
     | '/panel'
     | '/perfil'
@@ -212,7 +234,9 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/horarios'
     | '/login'
+    | '/recuperar'
     | '/registro'
+    | '/restablecer'
     | '/_authenticated/_admin'
     | '/_authenticated/miembros'
     | '/_authenticated/panel'
@@ -232,7 +256,9 @@ export interface RootRouteChildren {
   ContactoRoute: typeof ContactoRoute
   HorariosRoute: typeof HorariosRoute
   LoginRoute: typeof LoginRoute
+  RecuperarRoute: typeof RecuperarRoute
   RegistroRoute: typeof RegistroRoute
+  RestablecerRoute: typeof RestablecerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -279,11 +305,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recuperar': {
+      id: '/recuperar'
+      path: '/recuperar'
+      fullPath: '/recuperar'
+      preLoaderRoute: typeof RecuperarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/registro': {
       id: '/registro'
       path: '/registro'
       fullPath: '/registro'
       preLoaderRoute: typeof RegistroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restablecer': {
+      id: '/restablecer'
+      path: '/restablecer'
+      fullPath: '/restablecer'
+      preLoaderRoute: typeof RestablecerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/_admin': {
@@ -421,7 +461,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContactoRoute: ContactoRoute,
   HorariosRoute: HorariosRoute,
   LoginRoute: LoginRoute,
+  RecuperarRoute: RecuperarRoute,
   RegistroRoute: RegistroRoute,
+  RestablecerRoute: RestablecerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
