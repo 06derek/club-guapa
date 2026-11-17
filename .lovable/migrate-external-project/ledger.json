@@ -74,9 +74,9 @@
     {
       "capability": "hosting / cutover",
       "source": "wrangler.jsonc + @cloudflare/vite-plugin self-deploy",
-      "outcome": "cutover to Lovable Publish (Lovable TanStack config)",
-      "status": "pending",
-      "next_action": "User publishes from Lovable; old Worker can be retired after data import"
+      "outcome": "self-hosted on Cloudflare Workers (vite build + wrangler deploy)",
+      "status": "migrated",
+      "next_action": "User connects GitHub, imports repo in Cloudflare with build command `npm run build` and deploy command `npx wrangler deploy`, then adds the Worker URL to auth redirect URLs"
     },
     {
       "capability": "verification",

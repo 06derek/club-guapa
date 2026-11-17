@@ -1,29 +1,45 @@
-# Welcome to your Lovable project
+# GUAPA · FES Acatlán
 
-This project was built with [Lovable](https://lovable.dev).
+Sitio del Grupo Universitario de Algoritmia y Programación Avanzada (TanStack Start + React + Tailwind).
 
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Desarrollo local
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install        # o: npm install
+bun run dev        # http://localhost:8080
+bun run test
 ```
 
-## Built with
+## Despliegue en Cloudflare Workers
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+El proyecto se compila con Vite y `@cloudflare/vite-plugin`, y se publica con Wrangler.
+**Siempre compila antes de publicar**: `wrangler deploy` por sí solo no puede empaquetar la app
+(da errores como `Could not resolve "#tanstack-router-entry"`).
+
+### Desde tu computadora
+
+```sh
+npx wrangler login
+npm run deploy     # = vite build && wrangler deploy
+```
+
+### Desde GitHub (Cloudflare Workers Builds)
+
+En Cloudflare: **Workers & Pages → Create → Import a repository** y elige este repositorio.
+
+| Ajuste | Valor |
+| --- | --- |
+| Project name | `guapa-club` (debe coincidir con `name` en `wrangler.jsonc`) |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
+
+### Configuración
+
+- `wrangler.jsonc` → `vars`: dirección del backend y clave publicable que usa el servidor.
+- `.env.production`: los mismos valores públicos para el navegador (se incrustan al compilar).
+- Solo valores públicos en esos archivos. Para claves privadas usa `npx wrangler secret put NOMBRE`.
+
+Después del primer despliegue, agrega la dirección del sitio (por ejemplo `https://guapa-club.<tu-cuenta>.workers.dev`
+o tu dominio) a las direcciones permitidas de inicio de sesión del backend, para que los enlaces de
+confirmación y de recuperar contraseña regresen a tu sitio.
