@@ -1,5 +1,9 @@
 # Roadmap GUAPA (MVP)
 
+- [x] Migración a este proyecto: páginas, diseño, base de datos y reglas
+- [ ] Importar datos y usuarios del proyecto anterior — espera exportaciones del cliente
+- [ ] Probar flujo con sesión (equipos, admin) con una cuenta UNAM real
+
 - [x] Etapa 0: sistema de diseño claro/oscuro, layout, navegación, 404, landing y páginas públicas con contenido de ejemplo
 - [x] Etapa 1: Lovable Cloud, registro (solo UNAM), login, logout, perfiles, roles, guardias de rutas
 - [ ] Asignar primer administrador — espera el correo del cliente
