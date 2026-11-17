@@ -35,7 +35,20 @@ export const registerSchema = z
   })
   .refine((v) => v.password === v.confirm, { path: ["confirm"], message: "Las contraseñas no coinciden" });
 
+export const forgotSchema = z.object({
+  email: z.string().trim().min(1, "Escribe tu correo").email("Correo inválido").max(255),
+});
+
+export const resetSchema = z
+  .object({
+    password: z.string().min(8, "Mínimo 8 caracteres").max(128),
+    confirm: z.string(),
+  })
+  .refine((v) => v.password === v.confirm, { path: ["confirm"], message: "Las contraseñas no coinciden" });
+
 export type LoginInput = z.infer<typeof loginSchema>;
+export type ForgotInput = z.infer<typeof forgotSchema>;
+export type ResetInput = z.infer<typeof resetSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 
 export function authErrorMessage(message: string | undefined): string {

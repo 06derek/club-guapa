@@ -64,7 +64,12 @@ function LoginPage() {
           <FieldError message={formState.errors.email?.message} />
         </div>
         <div>
-          <Label htmlFor="password">Contraseña</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="password">Contraseña</Label>
+            <Link to="/recuperar" className="text-xs font-medium text-gold hover:underline">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
           <Input
             id="password"
             type="password"

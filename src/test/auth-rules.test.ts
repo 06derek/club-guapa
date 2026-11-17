@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isUnamEmail, registerSchema, safeRedirect } from "@/lib/auth-rules";
+import { isUnamEmail, registerSchema, resetSchema, safeRedirect } from "@/lib/auth-rules";
 
 describe("Registro solo con correos UNAM", () => {
   it("acepta correos de dominio unam.mx y sus subdominios", () => {
@@ -31,5 +31,13 @@ describe("Redirección segura tras iniciar sesión", () => {
     expect(safeRedirect("/perfil")).toBe("/perfil");
     expect(safeRedirect("//evil.com")).toBe("/panel");
     expect(safeRedirect("https://evil.com")).toBe("/panel");
+  });
+});
+
+describe("Nueva contraseña al restablecer", () => {
+  it("exige al menos 8 caracteres y que ambas coincidan", () => {
+    expect(resetSchema.safeParse({ password: "secreto123", confirm: "secreto123" }).success).toBe(true);
+    expect(resetSchema.safeParse({ password: "corta", confirm: "corta" }).success).toBe(false);
+    expect(resetSchema.safeParse({ password: "secreto123", confirm: "secreto124" }).success).toBe(false);
   });
 });
