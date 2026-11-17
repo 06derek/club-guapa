@@ -28,3 +28,15 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Public site chrome (header, footer, theme toggle) lives in `src/components/site/` and wraps every route from `src/routes/__root.tsx`; why: one shared layout for public and member areas.
+- Theme is a `dark` class on `<html>` set by an inline head script from localStorage key `guapa-theme`; why: avoids light/dark flash before hydration.
+- All colors come from tokens in `src/styles.css` (incl. `gold`, `success`, `surface`); components never use raw color classes.
+- Auth: email/password via Lovable Cloud; UNAM-only signup is enforced by the `handle_new_user` trigger on auth.users (client zod check in `src/lib/auth-rules.ts` only mirrors it); why: the domain rule must hold even if the UI is bypassed.
+- Roles live in `public.user_roles` checked with `has_role()`; private pages under `src/routes/_authenticated/`, admin pages under `_authenticated/_admin/`; session state comes from `AuthProvider` in `src/lib/auth.tsx`; why: permissions are enforced by RLS, route guards only shape the UI.
+- Public activities/schedules come from the database via `src/lib/public-content.ts`, falling back to marked sample data in `src/content/site.ts` when empty; contact info still lives only in `src/content/site.ts`; why: site never looks empty before admins publish.
+- Team rules (5-member cap, creator auto-join, eligibility) are enforced by DB triggers; `src/lib/team-rules.ts` only mirrors them for UI messages; why: limits hold even if the UI is bypassed.
+- Hosting is Lovable Publish on the stock `@lovable.dev/vite-tanstack-config`; the earlier Wrangler/Cloudflare self-deploy setup was intentionally not carried over; why: the project was migrated back into Lovable.
+- Password recovery lives at `/recuperar` (request link) and `/restablecer` (set new password); why: imported users from the previous backend set a new password through this flow on first visit.
