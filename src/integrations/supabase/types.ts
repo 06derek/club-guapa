@@ -535,6 +535,7 @@ export type Database = {
       cf_enqueue_sync: { Args: { _uid: string }; Returns: undefined }
       cf_process_sync: { Args: { _uid: string }; Returns: string }
       cf_sync_tick: { Args: never; Returns: undefined }
+      cf_sync_tick_limit: { Args: { _limit: number }; Returns: undefined }
       get_scoreboard: {
         Args: { _from: string; _to: string }
         Returns: {
@@ -570,6 +571,7 @@ export type Database = {
       is_unam_email: { Args: { _email: string }; Returns: boolean }
       link_codeforces: { Args: { _handle: string }; Returns: string }
       process_my_cf_sync: { Args: never; Returns: string }
+      refresh_scoreboard: { Args: never; Returns: undefined }
       request_my_cf_sync: { Args: never; Returns: string }
       unlink_codeforces: { Args: never; Returns: undefined }
       update_my_profile: {
