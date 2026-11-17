@@ -15,6 +15,13 @@
       "when": 1794892605749,
       "tag": "0001_resources_calendar_competitions",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794892789425,
+      "tag": "0002_codeforces_scoreboard_stats_audit",
+      "breakpoints": true
     }
   ]
 }

@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_log: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          entity: string
+          entity_id: string | null
+          id: number
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity: string
+          entity_id?: string | null
+          id?: never
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity?: string
+          entity_id?: string | null
+          id?: never
+        }
+        Relationships: []
+      }
       calendar_events: {
         Row: {
           created_at: string
@@ -79,6 +109,109 @@ export type Database = {
           url?: string | null
         }
         Relationships: []
+      }
+      cf_solved_problems: {
+        Row: {
+          contest_id: number | null
+          first_accepted_at: string
+          name: string
+          problem_index: string
+          problem_key: string
+          rating: number | null
+          tags: string[]
+          user_id: string
+        }
+        Insert: {
+          contest_id?: number | null
+          first_accepted_at: string
+          name: string
+          problem_index: string
+          problem_key: string
+          rating?: number | null
+          tags?: string[]
+          user_id: string
+        }
+        Update: {
+          contest_id?: number | null
+          first_accepted_at?: string
+          name?: string
+          problem_index?: string
+          problem_key?: string
+          rating?: number | null
+          tags?: string[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cf_solved_problems_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      codeforces_accounts: {
+        Row: {
+          avatar_url: string | null
+          cf_rank: string | null
+          full_synced: boolean
+          handle: string
+          info_request_id: number | null
+          last_synced_at: string | null
+          linked_at: string
+          max_rank: string | null
+          max_rating: number | null
+          rating: number | null
+          status_request_id: number | null
+          sync_error: string | null
+          sync_requested_at: string | null
+          sync_status: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          cf_rank?: string | null
+          full_synced?: boolean
+          handle: string
+          info_request_id?: number | null
+          last_synced_at?: string | null
+          linked_at?: string
+          max_rank?: string | null
+          max_rating?: number | null
+          rating?: number | null
+          status_request_id?: number | null
+          sync_error?: string | null
+          sync_requested_at?: string | null
+          sync_status?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          cf_rank?: string | null
+          full_synced?: boolean
+          handle?: string
+          info_request_id?: number | null
+          last_synced_at?: string | null
+          linked_at?: string
+          max_rank?: string | null
+          max_rating?: number | null
+          rating?: number | null
+          status_request_id?: number | null
+          sync_error?: string | null
+          sync_requested_at?: string | null
+          sync_status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "codeforces_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       external_platforms: {
         Row: {
@@ -399,6 +532,29 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cf_enqueue_sync: { Args: { _uid: string }; Returns: undefined }
+      cf_process_sync: { Args: { _uid: string }; Returns: string }
+      cf_sync_tick: { Args: never; Returns: undefined }
+      get_scoreboard: {
+        Args: { _from: string; _to: string }
+        Returns: {
+          cf_rank: string
+          full_name: string
+          handle: string
+          last_solved_at: string
+          last_synced_at: string
+          rating: number
+          solved: number
+          sync_status: string
+          user_id: string
+          username: string
+        }[]
+      }
+      get_team_stats: { Args: { _team: string }; Returns: Json }
+      get_user_stats: {
+        Args: { _from: string; _to: string; _user: string }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -412,6 +568,10 @@ export type Database = {
         Returns: boolean
       }
       is_unam_email: { Args: { _email: string }; Returns: boolean }
+      link_codeforces: { Args: { _handle: string }; Returns: string }
+      process_my_cf_sync: { Args: never; Returns: string }
+      request_my_cf_sync: { Args: never; Returns: string }
+      unlink_codeforces: { Args: never; Returns: undefined }
       update_my_profile: {
         Args: { _bio: string; _full_name: string; _username: string }
         Returns: undefined
