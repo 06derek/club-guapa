@@ -7,7 +7,8 @@ import { CodeCard } from "@/components/site/code-card";
 import { SectionHeading, SampleNotice } from "@/components/site/section-heading";
 import { ActivityCard } from "@/components/site/activity-card";
 import { ScheduleList } from "@/components/site/schedule-list";
-import { club, pillars, contact } from "@/content/site";
+import { club, pillars } from "@/content/site";
+import { contactQuery } from "@/lib/site-settings";
 import { activitiesQuery, schedulesQuery } from "@/lib/public-content";
 
 export const Route = createFileRoute("/")({
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/")({
     Promise.all([
       context.queryClient.ensureQueryData(activitiesQuery),
       context.queryClient.ensureQueryData(schedulesQuery),
+      context.queryClient.ensureQueryData(contactQuery),
     ]),
   component: Index,
 });
@@ -46,6 +48,7 @@ const platformFeatures = [
 ];
 
 function Index() {
+  const { data: contact } = useSuspenseQuery(contactQuery);
   const { data: acts } = useSuspenseQuery(activitiesQuery);
   const { data: sched } = useSuspenseQuery(schedulesQuery);
   const recent = acts.items.slice(0, 3);
@@ -185,7 +188,9 @@ function Index() {
         <div className="flex flex-col items-start justify-between gap-6 border-t border-border pt-12 md:flex-row md:items-center">
           <div>
             <h2 className="text-2xl font-bold sm:text-3xl">¿Quieres unirte a GUAPA?</h2>
-            <p className="mt-2 text-muted-foreground">Escríbenos a {contact.email} o visítanos en el CEDETEC.</p>
+            <p className="mt-2 text-muted-foreground">
+              {contact.email ? `Escríbenos a ${contact.email} o visítanos en el CEDETEC.` : "Visítanos en el CEDETEC."}
+            </p>
           </div>
           <Button asChild variant="gold" size="lg">
             <Link to="/contacto">

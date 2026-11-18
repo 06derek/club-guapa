@@ -12,6 +12,17 @@
 - [x] Etapa 2: admin registra actividades y horarios
 - [x] Etapa 4: miembros y equipos (crear, agregar máx. 5, ver, admin renombra/borra)
 
+## MVP aprobado (17 nov)
+- [ ] Admin edita contacto: correo, ubicación, Facebook y Discord (pie de página y Contacto)
+- [ ] Recursos: página pública + admin agrega/edita/borra
+- [ ] Perfil: editar datos y vincular Codeforces
+- [ ] Scoreboard por periodo
+- [ ] Mis competencias (registro e historial)
+- [ ] Calendario público + admin agrega competencias
+- [ ] Estadísticas personales
+- [ ] Admin: desactivar usuarios
+- [ ] Primer administrador: la cuenta del usuario (aprobado)
+
 ## Continuación según SRS (17 nov) — supuestos por defecto mientras no haya respuesta a Q1–Q17
 - [ ] Perfil editable (RF-022), abandonar equipo (RF-038), borrar actividades/horarios (RF-009)
 - [ ] Etapa 3: recursos (enlaces, categorías, búsqueda, públicos/solo miembros, CRUD admin)

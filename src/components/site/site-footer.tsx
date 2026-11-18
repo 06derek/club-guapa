@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { club, contact } from "@/content/site";
+import { useQuery } from "@tanstack/react-query";
+import { club } from "@/content/site";
+import { contactQuery } from "@/lib/site-settings";
 import { navLinks } from "./nav-links";
 
 export function SiteFooter() {
+  const { data: contact } = useQuery(contactQuery);
   return (
     <footer className="mt-24 border-t border-border bg-surface">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -27,10 +30,23 @@ export function SiteFooter() {
         </div>
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Contacto</p>
-          <a href={`mailto:${contact.email}`} className="mt-3 block text-sm text-foreground/80 hover:text-gold">
-            {contact.email}
-          </a>
-          <p className="mt-2 text-sm text-muted-foreground">{contact.location}</p>
+          {contact?.email ? (
+            <a href={`mailto:${contact.email}`} className="mt-3 block break-all text-sm text-foreground/80 hover:text-gold">
+              {contact.email}
+            </a>
+          ) : null}
+          {contact?.location ? <p className="mt-2 text-sm text-muted-foreground">{contact.location}</p> : null}
+          {contact?.socials.length ? (
+            <ul className="mt-3 flex flex-wrap gap-3 text-sm">
+              {contact.socials.map((s) => (
+                <li key={s.key}>
+                  <a href={s.href} target="_blank" rel="noreferrer" className="text-foreground/80 hover:text-gold">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
       <div className="border-t border-border">

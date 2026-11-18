@@ -28,6 +28,7 @@ import { Route as AuthenticatedEquiposTeamIdRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminAdminIndexRouteImport } from './routes/_authenticated/_admin/admin/index'
 import { Route as AuthenticatedAdminAdminContenidoRouteImport } from './routes/_authenticated/_admin/admin/contenido'
 import { Route as AuthenticatedAdminAdminEquiposRouteImport } from './routes/_authenticated/_admin/admin/equipos'
+import { Route as AuthenticatedAdminAdminSitioRouteImport } from './routes/_authenticated/_admin/admin/sitio'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -128,6 +129,12 @@ const AuthenticatedAdminAdminEquiposRoute =
     path: '/equipos',
     getParentRoute: () => AuthenticatedAdminAdminRouteRoute,
   } as any)
+const AuthenticatedAdminAdminSitioRoute =
+  AuthenticatedAdminAdminSitioRouteImport.update({
+    id: '/sitio',
+    path: '/sitio',
+    getParentRoute: () => AuthenticatedAdminAdminRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/equipos/': typeof AuthenticatedEquiposIndexRoute
   '/admin/contenido': typeof AuthenticatedAdminAdminContenidoRoute
   '/admin/equipos': typeof AuthenticatedAdminAdminEquiposRoute
+  '/admin/sitio': typeof AuthenticatedAdminAdminSitioRoute
   '/admin/': typeof AuthenticatedAdminAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -164,6 +172,7 @@ export interface FileRoutesByTo {
   '/equipos': typeof AuthenticatedEquiposIndexRoute
   '/admin/contenido': typeof AuthenticatedAdminAdminContenidoRoute
   '/admin/equipos': typeof AuthenticatedAdminAdminEquiposRoute
+  '/admin/sitio': typeof AuthenticatedAdminAdminSitioRoute
   '/admin': typeof AuthenticatedAdminAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -186,6 +195,7 @@ export interface FileRoutesById {
   '/_authenticated/equipos/': typeof AuthenticatedEquiposIndexRoute
   '/_authenticated/_admin/admin/contenido': typeof AuthenticatedAdminAdminContenidoRoute
   '/_authenticated/_admin/admin/equipos': typeof AuthenticatedAdminAdminEquiposRoute
+  '/_authenticated/_admin/admin/sitio': typeof AuthenticatedAdminAdminSitioRoute
   '/_authenticated/_admin/admin/': typeof AuthenticatedAdminAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/equipos/'
     | '/admin/contenido'
     | '/admin/equipos'
+    | '/admin/sitio'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/equipos'
     | '/admin/contenido'
     | '/admin/equipos'
+    | '/admin/sitio'
     | '/admin'
   id:
     | '__root__'
@@ -246,6 +258,7 @@ export interface FileRouteTypes {
     | '/_authenticated/equipos/'
     | '/_authenticated/_admin/admin/contenido'
     | '/_authenticated/_admin/admin/equipos'
+    | '/_authenticated/_admin/admin/sitio'
     | '/_authenticated/_admin/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -396,12 +409,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAdminEquiposRouteImport
       parentRoute: typeof AuthenticatedAdminAdminRouteRoute
     }
+    '/_authenticated/_admin/admin/sitio': {
+      id: '/_authenticated/_admin/admin/sitio'
+      path: '/sitio'
+      fullPath: '/admin/sitio'
+      preLoaderRoute: typeof AuthenticatedAdminAdminSitioRouteImport
+      parentRoute: typeof AuthenticatedAdminAdminRouteRoute
+    }
   }
 }
 
 interface AuthenticatedAdminAdminRouteRouteChildren {
   AuthenticatedAdminAdminContenidoRoute: typeof AuthenticatedAdminAdminContenidoRoute
   AuthenticatedAdminAdminEquiposRoute: typeof AuthenticatedAdminAdminEquiposRoute
+  AuthenticatedAdminAdminSitioRoute: typeof AuthenticatedAdminAdminSitioRoute
   AuthenticatedAdminAdminIndexRoute: typeof AuthenticatedAdminAdminIndexRoute
 }
 
@@ -410,6 +431,7 @@ const AuthenticatedAdminAdminRouteRouteChildren: AuthenticatedAdminAdminRouteRou
     AuthenticatedAdminAdminContenidoRoute:
       AuthenticatedAdminAdminContenidoRoute,
     AuthenticatedAdminAdminEquiposRoute: AuthenticatedAdminAdminEquiposRoute,
+    AuthenticatedAdminAdminSitioRoute: AuthenticatedAdminAdminSitioRoute,
     AuthenticatedAdminAdminIndexRoute: AuthenticatedAdminAdminIndexRoute,
   }
 
